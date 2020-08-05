@@ -69,10 +69,10 @@ class TasksListState extends State<TasksList> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 FlatButton(
-                  child: Icon(Icons.blur_circular),
+                  child: task.isCompleted ? Icon(Icons.done, color: Colors.grey,) : Icon(Icons.blur_circular),
                   onPressed: () => completeTask(task),
                 ),
-                Text(task.name)
+                Text(task.name, style: TextStyle(color: task.isCompleted ? Colors.grey : null))
               ],
             ),
           ),

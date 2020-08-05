@@ -14,6 +14,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Task> tasks = new List();
+  List<Task> filteredTasks = new List();
+  var textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,8 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               title: TextField(
+                controller: textController,
+                onChanged: (text) => updateTasksList(text),
                 cursorColor: Colors.white,
                 style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
@@ -58,7 +62,10 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             body: TabBarView(
-              children: [TasksList(tasks), CompletedList(tasks)],
+              children: [
+                TasksList(filteredTasks),
+                CompletedList(filteredTasks)
+              ],
             ),
           ),
         ));
@@ -72,8 +79,23 @@ class _HomePageState extends State<HomePage> {
       if (value != null) {
         setState(() {
           tasks.add(value);
+          textController.text = "";
+          updateTasksList("");
         });
       }
+    });
+  }
+
+  void updateTasksList(String text) {
+    setState(() {
+      filteredTasks.clear();
+      if (text.isEmpty)
+        filteredTasks.addAll(tasks);
+      else
+        tasks
+            .where(
+                (task) => task.name.toLowerCase().contains(text.toLowerCase()))
+            .forEach((task) => filteredTasks.add(task));
     });
   }
 }

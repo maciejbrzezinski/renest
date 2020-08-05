@@ -68,11 +68,26 @@ class TasksListState extends State<TasksList> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                FlatButton(
-                  child: task.isCompleted ? Icon(Icons.done, color: Colors.grey,) : Icon(Icons.blur_circular),
-                  onPressed: () => completeTask(task),
-                ),
-                Text(task.name, style: TextStyle(color: task.isCompleted ? Colors.grey : null))
+                task.isCompleted
+                    ? FlatButton(
+                        child: Icon(
+                          Icons.done,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () => completeTask(task),
+                      )
+                    : MaterialButton(
+                        height: 30,
+                        onPressed: () => completeTask(task),
+                        shape: CircleBorder(
+                            side: BorderSide(
+                                width: 1,
+                                color: Colors.black,
+                                style: BorderStyle.solid)),
+                      ),
+                Text(task.name,
+                    style:
+                        TextStyle(color: task.isCompleted ? Colors.grey : null))
               ],
             ),
           ),

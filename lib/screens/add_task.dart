@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:renest/models/idea.dart';
 import 'package:renest/samples/sample_data.dart';
+import 'package:renest/widgets/ideas_list.dart';
 
 class AddTask extends StatefulWidget {
   @override
@@ -9,7 +11,7 @@ class AddTask extends StatefulWidget {
 
 class AddTaskState extends State<AddTask> {
   final String title = "Add Task";
-  List<String> sampleIdeas = IdeaHub.ideas;
+  List<Idea> sampleIdeas = IdeaHub.ideas;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class AddTaskState extends State<AddTask> {
         centerTitle: true,
         title: Text(title),
       ),
-      body: Center(),
+      body: IdeasList(sampleIdeas),
     );
   }
 }

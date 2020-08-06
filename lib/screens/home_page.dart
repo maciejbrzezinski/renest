@@ -24,13 +24,7 @@ class _HomePageState extends State<HomePage> {
           centerTitle: true,
           title: Text(widget.title),
           actions: <Widget>[
-            FlatButton(
-              onPressed: () => newTask(),
-              child: Icon(
-                Icons.add,
-                color: Colors.white,
-              ),
-            )
+            buildNewTaskButton()
           ],
         ),
         body: DefaultTabController(
@@ -43,23 +37,7 @@ class _HomePageState extends State<HomePage> {
                   Tab(icon: Text("Completed")),
                 ],
               ),
-              title: TextField(
-                controller: textController,
-                onChanged: (text) => updateTasksList(text),
-                cursorColor: Colors.white,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.white70,
-                  ),
-                  hintText: "Search",
-                  hintStyle: TextStyle(color: Colors.white70),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white70),
-                  ),
-                ),
-              ),
+              title: buildSearchField(),
             ),
             body: TabBarView(
               children: [
@@ -97,5 +75,35 @@ class _HomePageState extends State<HomePage> {
                 (task) => task.name.toLowerCase().contains(text.toLowerCase()))
             .forEach((task) => filteredTasks.add(task));
     });
+  }
+
+  TextField buildSearchField() {
+    return TextField(
+              controller: textController,
+              onChanged: (text) => updateTasksList(text),
+              cursorColor: Colors.white,
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Colors.white70,
+                ),
+                hintText: "Search",
+                hintStyle: TextStyle(color: Colors.white70),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white70),
+                ),
+              ),
+            );
+  }
+
+  FlatButton buildNewTaskButton() {
+    return FlatButton(
+            onPressed: () => newTask(),
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+          );
   }
 }

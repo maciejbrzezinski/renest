@@ -16,6 +16,9 @@ class TasksListState extends State<TasksList> {
   @override
   Widget build(BuildContext context) {
     var tasks = widget.tasks;
+    if (tasks.length == 0)
+      return Center(
+          child: Text("Add your first task!", style: TextStyle(fontSize: 17)));
     return GroupedListView(
       elements: tasks,
       groupBy: (element) => (element as Task).getGroupByNumber(),
